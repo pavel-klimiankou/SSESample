@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Server-sent event demo</title>
+</head>
+<body>
+<h1>Server-sent event demo</h1>
+<h2>Open dev console to see the action</h2>
+<script type="text/javascript">
+	if ("EventSource" in window) {
+		var messenger = new EventSource("/stream");
+
+		["open", "message", "close", "error", "myEvent"].forEach(function (eventName) {
+			messenger.addEventListener(eventName, function (e) {
+				console.log(eventName, (e.data || e.readyState || e));
+			}, false);
+		});
+	} else {
+		log("EventSource is not available :(");
+	}
+</script>
+</body>
+</html>
